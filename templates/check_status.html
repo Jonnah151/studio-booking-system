@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Status</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">StudioPro</a>
+            <div class="nav-links">
+                <a href="/booking">Home</a>
+                <a href="/check_status">Check Status</a>
+                <a href="/admin/login">Admin</a>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>Check Booking Status</h1>
+            <p class="subtitle">Enter your booking ID to check status</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2><i class="fas fa-search"></i> Find Your Booking</h2>
+            </div>
+            
+            <form method="POST" action="/check_status" class="status-form">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <div class="form-group">
+                    <label for="booking_id">
+                        <i class="fas fa-hashtag"></i> Booking ID
+                    </label>
+                    <input type="text" id="booking_id" name="booking_id" required 
+                           placeholder="Enter your booking ID (e.g., 123)">
+                    <div class="form-help">
+                        <i class="fas fa-info-circle"></i>
+                        Your booking ID was provided when you submitted your request
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-search"></i> Check Status
+                </button>
+            </form>
+            
+            <div class="card-footer">
+                <div class="help-box">
+                    <h4><i class="fas fa-question-circle"></i> Need Help?</h4>
+                    <p>If you've lost your booking ID, please contact our support team at support jonathanpetro151@gmail.com</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3><i class="fas fa-lightbulb"></i> What do the statuses mean?</h3>
+            <div class="status-examples">
+                <div class="status-example">
+                    <span class="status-badge badge-pending">Pending</span>
+                    <p>Your booking is under review</p>
+                </div>
+                <div class="status-example">
+                    <span class="status-badge badge-approved">Approved</span>
+                    <p>Your studio session is confirmed</p>
+                </div>
+                <div class="status-example">
+                    <span class="status-badge badge-rejected">Rejected</span>
+                    <p>The requested time is unavailable</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 BMSOUL StudioPro. Premium recording studio bookings.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

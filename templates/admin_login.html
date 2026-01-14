@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | StudioPro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="logo">
+                    <i class="fas fa-record-vinyl"></i>
+                    <span>StudioPro</span>
+                </div>
+                <h1>Admin Portal</h1>
+                <p>Sign in to manage bookings</p>
+            </div>
+            
+            <form method="POST" action="/admin/login" class="login-form">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <div class="form-group">
+                    <label for="username">
+                        <i class="fas fa-user"></i> Username
+                    </label>
+                    <input type="text" id="username" name="username" required 
+                           placeholder="Enter admin username">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    <input type="password" id="password" name="password" required 
+                           placeholder="Enter password">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </button>
+            </form>
+            
+            <div class="login-footer">
+                <a href="">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+                <div class="security-note">
+                    <i class="fas fa-shield-alt"></i>
+                    Secure admin portal
+                </div>
+            </div>
+        </div>
+        
+        <div class="login-sidebar">
+            <div class="sidebar-content">
+                <h2><i class="fas fa-chart-line"></i> Studio Management</h2>
+                <ul class="features-list">
+                    <li><i class="fas fa-check-circle"></i> Manage all bookings</li>
+                    <li><i class="fas fa-users"></i> Oversee client sessions</li>
+                    <li><i class="fas fa-calendar-check"></i> Approve/reject requests</li>
+                    <li><i class="fas fa-chart-pie"></i> View booking analytics</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

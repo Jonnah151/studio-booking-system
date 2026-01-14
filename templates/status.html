@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Status | StudioPro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">StudioPro</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/check_status">Check Status</a>
+                <a href="/admin/login">Admin</a>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>Booking Status</h1>
+            <p class="subtitle">Check your studio session status</p>
+        </div>
+
+        <div class="card status-card">
+            <div class="card-header">
+                <h2><i class="fas fa-info-circle"></i> Booking Details</h2>
+            </div>
+            
+            {% if booking %}
+            <div class="status-content">
+                <div class="status-header">
+                    <div class="booking-id">Booking #{{ booking[0] }}</div>
+                    <div class="status-display">
+                        {% if booking[5] == 'pending' %}
+                            <span class="status-badge badge-pending">{{ booking[5] }}</span>
+                        {% elif booking[5] == 'approved' %}
+                            <span class="status-badge badge-approved">{{ booking[5] }}</span>
+                        {% elif booking[5] == 'rejected' %}
+                            <span class="status-badge badge-rejected">{{ booking[5] }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-user"></i> Client Name
+                        </div>
+                        <div class="detail-value">{{ booking[1] }}</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-sliders-h"></i> Service Type
+                        </div>
+                        <div class="detail-value">{{ booking[2] }}</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-calendar-day"></i> Date
+                        </div>
+                        <div class="detail-value">{{ booking[3] }}</div>
+                    </div>
+                    
+                    <div class="detail-item">
+                        <div class="detail-label">
+                            <i class="fas fa-clock"></i> Time
+                        </div>
+                        <div class="detail-value">{{ booking[4] }}</div>
+                    </div>
+                </div>
+                
+                <div class="status-message">
+                    {% if booking[5] == 'Pending' %}
+                        <div class="message pending">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4>Awaiting Approval</h4>
+                                <p>Your booking is being reviewed. You'll receive an update within 24 hours.</p>
+                            </div>
+                        </div>
+                    {% elif booking[5] == 'Approved' %}
+                        <div class="message approved">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <h4>Booking Confirmed!</h4>
+                                <p>Your studio session has been approved. Please arrive 15 minutes before your scheduled time.</p>
+                            </div>
+                        </div>
+                    {% elif booking[5] == 'Rejected' %}
+                        <div class="message rejected">
+                            <i class="fas fa-times-circle"></i>
+                            <div>
+                                <h4>Booking Not Available</h4>
+                                <p>Unfortunately, this time slot is not available. Please try booking a different time.</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="card-footer">
+                <a href="/bookings" class="btn btn-secondary">
+                    <i class="fas fa-calendar-plus"></i> Make Another Booking
+                </a>
+                <a href="/check_status" class="btn btn-primary">
+                    <i class="fas fa-search"></i> Check Booking status
+                </a>
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <i class="fas fa-search"></i>
+                <h3>Booking Not Found</h3>
+                <p>No booking found with the provided ID. Please check and try again.</p>
+                <a href="/check_status" class="btn btn-primary">
+                    <i class="fas fa-redo"></i> Try Again
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 BMSOUL StudioPro. Premium recording studio bookings.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
