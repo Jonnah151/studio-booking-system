@@ -5,6 +5,17 @@ StudioPro is a Flask-based web application that allows clients to book studio se
 ## Live Demo
 👉 https://studio-booking-system.onrender.com
 
+## Screenshots
+
+### Booking Page
+![Booking Page](screenshots/home_page.png)
+
+### Check Booking Status
+![Status Page](screenshots/status_check.png)
+
+### Admin Login
+![Admin Login](screenshots/admin_login_page.png)
+
 ## Features
 - Online booking form (name, service, date, time)
 - Prevents double-booking for the same time slot
